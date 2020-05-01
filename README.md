@@ -22,26 +22,25 @@ Runtime=.NET Core 3.1
 
 |             Method |       Mean |     Error |    StdDev |
 |------------------- |-----------:|----------:|----------:|
-|     ApproxAnimated |   2.513 ms | 0.0292 ms | 0.0258 ms |
-|    DigitalAnimated |   2.710 ms | 0.0354 ms | 0.0314 ms |
-|      PhotoAnimated |   2.649 ms | 0.0514 ms | 0.0481 ms |
-|        NeuAnimated |  26.609 ms | 0.2104 ms | 0.1968 ms |
-|      ApproxSticker |   9.389 ms | 0.1875 ms | 0.1841 ms |
-|     DigitalSticker |  10.500 ms | 0.1444 ms | 0.1351 ms |
-|       PhotoSticker |  10.487 ms | 0.1950 ms | 0.1824 ms |
-|         NeuSticker | 125.619 ms | 2.0152 ms | 1.8851 ms |
-| ApproxStickerImage |  11.391 ms | 0.0828 ms | 0.0734 ms |
-|      MagickSticker |  67.885 ms | 1.0467 ms | 0.8740 ms |
+|     ApproxAnimated |   2.455 ms | 0.0359 ms | 0.0318 ms |
+|    DigitalAnimated |   2.612 ms | 0.0453 ms | 0.0402 ms |
+|      PhotoAnimated |   2.657 ms | 0.0320 ms | 0.0267 ms |
+|        NeuAnimated |  28.318 ms | 0.5590 ms | 0.5741 ms |
+|      ApproxSticker |   9.916 ms | 0.0763 ms | 0.0596 ms |
+|     DigitalSticker |  10.634 ms | 0.2001 ms | 0.2055 ms |
+|       PhotoSticker |  10.645 ms | 0.2034 ms | 0.1903 ms |
+|         NeuSticker | 129.872 ms | 1.7166 ms | 1.6057 ms |
+| ApproxStickerImage |  10.542 ms | 0.1995 ms | 0.1959 ms |
+|      MagickSticker |  67.693 ms | 0.7761 ms | 0.7260 ms |
+|        NGifSticker | 343.996 ms | 4.2268 ms | 3.9537 ms |
 
 // * Hints *
 Outliers
-  Benchmark.ApproxAnimated: Runtime=.NET Core 3.1     -> 1 outlier  was  removed (2.83 ms)
-  Benchmark.DigitalAnimated: Runtime=.NET Core 3.1    -> 1 outlier  was  removed (3.01 ms)
-  Benchmark.PhotoAnimated: Runtime=.NET Core 3.1      -> 1 outlier  was  removed (3.08 ms)
-  Benchmark.NeuAnimated: Runtime=.NET Core 3.1        -> 1 outlier  was  detected (26.11 ms)
-  Benchmark.PhotoSticker: Runtime=.NET Core 3.1       -> 1 outlier  was  removed, 2 outliers were detected (10.06 ms, 11.10 ms)
-  Benchmark.ApproxStickerImage: Runtime=.NET Core 3.1 -> 1 outlier  was  removed (12.07 ms)
-  Benchmark.MagickSticker: Runtime=.NET Core 3.1      -> 2 outliers were removed (72.58 ms, 98.67 ms)
+  Benchmark.ApproxAnimated: Runtime=.NET Core 3.1  -> 1 outlier  was  removed (2.95 ms)
+  Benchmark.DigitalAnimated: Runtime=.NET Core 3.1 -> 1 outlier  was  removed (2.87 ms)
+  Benchmark.PhotoAnimated: Runtime=.NET Core 3.1   -> 2 outliers were removed (2.75 ms, 3.03 ms)
+  Benchmark.NeuAnimated: Runtime=.NET Core 3.1     -> 1 outlier  was  removed (31.61 ms)
+  Benchmark.ApproxSticker: Runtime=.NET Core 3.1   -> 3 outliers were removed (10.24 ms..10.41 ms)
 
 // * Legends *
   Mean   : Arithmetic mean of all measurements

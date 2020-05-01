@@ -20,22 +20,28 @@ Intel Core i9-9980HK CPU 2.40GHz, 1 CPU, 16 logical and 8 physical cores
 
 Runtime=.NET Core 3.1
 
-|          Method |       Mean |     Error |    StdDev |
-|---------------- |-----------:|----------:|----------:|
-|  ApproxAnimated |   2.495 ms | 0.0236 ms | 0.0209 ms |
-| DigitalAnimated |   2.707 ms | 0.0389 ms | 0.0345 ms |
-|   PhotoAnimated |   2.662 ms | 0.0447 ms | 0.0373 ms |
-|     NeuAnimated |  26.615 ms | 0.3884 ms | 0.3633 ms |
-|   ApproxSticker |   9.481 ms | 0.1404 ms | 0.1314 ms |
-|  DigitalSticker |  10.391 ms | 0.1978 ms | 0.2278 ms |
-|    PhotoSticker |  10.389 ms | 0.2031 ms | 0.1899 ms |
-|      NeuSticker | 124.949 ms | 1.4172 ms | 1.3256 ms |
+|             Method |       Mean |     Error |    StdDev |
+|------------------- |-----------:|----------:|----------:|
+|     ApproxAnimated |   2.513 ms | 0.0292 ms | 0.0258 ms |
+|    DigitalAnimated |   2.710 ms | 0.0354 ms | 0.0314 ms |
+|      PhotoAnimated |   2.649 ms | 0.0514 ms | 0.0481 ms |
+|        NeuAnimated |  26.609 ms | 0.2104 ms | 0.1968 ms |
+|      ApproxSticker |   9.389 ms | 0.1875 ms | 0.1841 ms |
+|     DigitalSticker |  10.500 ms | 0.1444 ms | 0.1351 ms |
+|       PhotoSticker |  10.487 ms | 0.1950 ms | 0.1824 ms |
+|         NeuSticker | 125.619 ms | 2.0152 ms | 1.8851 ms |
+| ApproxStickerImage |  11.391 ms | 0.0828 ms | 0.0734 ms |
+|      MagickSticker |  67.885 ms | 1.0467 ms | 0.8740 ms |
 
 // * Hints *
 Outliers
-  Benchmark.ApproxAnimated: Runtime=.NET Core 3.1  -> 1 outlier  was  removed (2.73 ms)
-  Benchmark.DigitalAnimated: Runtime=.NET Core 3.1 -> 1 outlier  was  removed (3.00 ms)
-  Benchmark.PhotoAnimated: Runtime=.NET Core 3.1   -> 2 outliers were removed (2.80 ms, 2.86 ms)
+  Benchmark.ApproxAnimated: Runtime=.NET Core 3.1     -> 1 outlier  was  removed (2.83 ms)
+  Benchmark.DigitalAnimated: Runtime=.NET Core 3.1    -> 1 outlier  was  removed (3.01 ms)
+  Benchmark.PhotoAnimated: Runtime=.NET Core 3.1      -> 1 outlier  was  removed (3.08 ms)
+  Benchmark.NeuAnimated: Runtime=.NET Core 3.1        -> 1 outlier  was  detected (26.11 ms)
+  Benchmark.PhotoSticker: Runtime=.NET Core 3.1       -> 1 outlier  was  removed, 2 outliers were detected (10.06 ms, 11.10 ms)
+  Benchmark.ApproxStickerImage: Runtime=.NET Core 3.1 -> 1 outlier  was  removed (12.07 ms)
+  Benchmark.MagickSticker: Runtime=.NET Core 3.1      -> 2 outliers were removed (72.58 ms, 98.67 ms)
 
 // * Legends *
   Mean   : Arithmetic mean of all measurements

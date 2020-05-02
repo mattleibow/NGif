@@ -22,25 +22,18 @@ Runtime=.NET Core 3.1
 
 |             Method |       Mean |     Error |    StdDev |
 |------------------- |-----------:|----------:|----------:|
-|     ApproxAnimated |   2.455 ms | 0.0359 ms | 0.0318 ms |
-|    DigitalAnimated |   2.612 ms | 0.0453 ms | 0.0402 ms |
-|      PhotoAnimated |   2.657 ms | 0.0320 ms | 0.0267 ms |
-|        NeuAnimated |  28.318 ms | 0.5590 ms | 0.5741 ms |
-|      ApproxSticker |   9.916 ms | 0.0763 ms | 0.0596 ms |
-|     DigitalSticker |  10.634 ms | 0.2001 ms | 0.2055 ms |
-|       PhotoSticker |  10.645 ms | 0.2034 ms | 0.1903 ms |
-|         NeuSticker | 129.872 ms | 1.7166 ms | 1.6057 ms |
-| ApproxStickerImage |  10.542 ms | 0.1995 ms | 0.1959 ms |
+|     ApproxAnimated |   2.316 ms | 0.0348 ms | 0.0308 ms |
+|    DigitalAnimated |   2.426 ms | 0.0456 ms | 0.0404 ms |
+|      PhotoAnimated |   2.438 ms | 0.0439 ms | 0.0367 ms |
+|        NeuAnimated |  27.972 ms | 0.5414 ms | 0.5793 ms |
+|      ApproxSticker |   7.967 ms | 0.1548 ms | 0.1373 ms |
+|     DigitalSticker |   8.750 ms | 0.1719 ms | 0.2466 ms |
+|       PhotoSticker |   8.589 ms | 0.1628 ms | 0.2000 ms |
+|         NeuSticker | 128.558 ms | 2.4605 ms | 2.6327 ms |
+| ApproxStickerImage |   9.582 ms | 0.1887 ms | 0.2173 ms |
 |      MagickSticker |  67.693 ms | 0.7761 ms | 0.7260 ms |
 |        NGifSticker | 343.996 ms | 4.2268 ms | 3.9537 ms |
-
-// * Hints *
-Outliers
-  Benchmark.ApproxAnimated: Runtime=.NET Core 3.1  -> 1 outlier  was  removed (2.95 ms)
-  Benchmark.DigitalAnimated: Runtime=.NET Core 3.1 -> 1 outlier  was  removed (2.87 ms)
-  Benchmark.PhotoAnimated: Runtime=.NET Core 3.1   -> 2 outliers were removed (2.75 ms, 3.03 ms)
-  Benchmark.NeuAnimated: Runtime=.NET Core 3.1     -> 1 outlier  was  removed (31.61 ms)
-  Benchmark.ApproxSticker: Runtime=.NET Core 3.1   -> 3 outliers were removed (10.24 ms..10.41 ms)
+|      SystemSticker |  19.830 ms | 0.4101 ms | 0.7395 ms |
 
 // * Legends *
   Mean   : Arithmetic mean of all measurements

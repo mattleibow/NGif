@@ -26,7 +26,7 @@ namespace SkiaSharp.Extended.Encoding
 
 			return new SKQuantizedFrame
 			{
-				Palette = palette,
+				Palette = palette, // TODO: copy the array
 				IndexedPixels = indexed,
 				ColorDepth = 8,
 				PaletteSize = 7,

@@ -1,12 +1,12 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
-//using Gif.Components;
 using ImageMagick;
 using SkiaSharp;
 using SkiaSharp.Extended.Encoding;
 using System;
-//using System.Drawing;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 
@@ -21,8 +21,8 @@ namespace Benchmarks
 		private SKBitmap[] animated;
 		private SKBitmap[] sticker;
 		private SKImage[] stickerImage;
-		//private Image[] stickerSystem;
 		private byte[] stickerPixels;
+		private Image[] stickerSystem;
 
 		private SKQuantizer approx = new SKApproximateGrayscaleQuantizer();
 		private SKQuantizer digital = new SKDigitalGrayscaleQuantizer();
@@ -37,7 +37,7 @@ namespace Benchmarks
 			sticker = new[] { SKBitmap.Decode("Res/sticker.png") };
 			stickerImage = new[] { SKImage.FromEncodedData("Res/sticker.png") };
 			stickerPixels = sticker[0].GetPixelSpan().ToArray();
-			//stickerSystem = new[] { Image.FromFile("Res/sticker.png") };
+			stickerSystem = new[] { Image.FromFile("Res/sticker.png") };
 		}
 
 		public void Dispose()
@@ -90,21 +90,13 @@ namespace Benchmarks
 			mi.Write(stream);
 		}
 
-		// OLD
+		// System.Drawing
 
-		//[Benchmark]
-		//public void NGifSticker()
-		//{
-		//	var encoder = new AnimatedGifEncoder();
-		//	encoder.Start(stream);
-		//	encoder.SetDelay(500);
-		//	encoder.SetRepeat(0);
-		//	foreach (var image in stickerSystem)
-		//	{
-		//		encoder.AddFrame(image);
-		//	}
-		//	encoder.Finish();
-		//}
+		[Benchmark]
+		public void SystemSticker()
+		{
+			stickerSystem[0].Save(stream, ImageFormat.Gif);
+		}
 
 		//
 

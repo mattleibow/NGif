@@ -8,14 +8,15 @@ namespace Example
 	{
 		static void Main(string[] args)
 		{
-			var imageFilePaths = new[] { "Res/01.png", "Res/02.png", "Res/03.png" };
-			//var imageFilePaths = new[] { "Res/sticker.png" };
+			//var imageFilePaths = new[] { "Res/01.png", "Res/02.png", "Res/03.png" };
+			var imageFilePaths = new[] { "Res/sticker.png" };
 
 			SKGifEncoderOptions options = new SKGifEncoderOptions
 			{
 				RepeatCount = 0,
-				Quantizer = new SKApproximateGrayscaleQuantizer(),
+				Quantizer = new SKNeuQuantizer(),
 			};
+
 			using var stream = File.Create("output.gif");
 			using var encoder = new SKGifEncoder(stream, options);
 

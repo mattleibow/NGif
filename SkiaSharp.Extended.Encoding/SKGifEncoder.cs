@@ -6,36 +6,38 @@ namespace SkiaSharp.Extended.Encoding
 	public class SKGifEncoder : IDisposable
 	{
 		private Stream stream;
+		private LzwEncoder encoder;
+
+		private readonly SKGifEncoderOptions options;
+		private readonly SKQuantizer quantizer;
 		private bool firstFrame;
 		private SKSizeI frameSize;
-
-		private SKGifEncoderOptions options;
-		private SKQuantizer quantizer;
 
 		public SKGifEncoder(Stream stream, SKGifEncoderOptions options = default)
 		{
 			this.stream = stream ?? throw new ArgumentNullException(nameof(stream));
 			this.options = options;
-
 			quantizer = options.Quantizer ?? new SKNeuQuantizer();
+			encoder = new LzwEncoder();
+
 			firstFrame = true;
 			frameSize = SKSizeI.Empty;
-
-			WriteString("GIF89a"); // header
 		}
 
-		public void AddFrame(SKPixmap im, SKGifEncoderFrameInfo frameInfo = default)
+		// AddFrame
+
+		public void AddFrame(SKPixmap frame, SKGifEncoderFrameInfo frameInfo = default)
 		{
 			using var bmp = new SKBitmap();
-			bmp.InstallPixels(im);
+			bmp.InstallPixels(frame);
 
 			AddFrame(bmp, frameInfo);
 		}
 
-		public void AddFrame(SKImage im, SKGifEncoderFrameInfo frameInfo = default)
+		public void AddFrame(SKImage frame, SKGifEncoderFrameInfo frameInfo = default)
 		{
-			// make syre we have the pixels
-			var raster = im.ToRasterImage(true);
+			// make sure we have the pixels
+			var raster = frame.ToRasterImage(true);
 
 			try
 			{
@@ -45,27 +47,29 @@ namespace SkiaSharp.Extended.Encoding
 			}
 			finally
 			{
-				if (raster != im)
+				if (raster != frame)
 					raster.Dispose();
 			}
 		}
 
-		public void AddFrame(SKBitmap im, SKGifEncoderFrameInfo frameInfo = default)
+		public void AddFrame(SKBitmap frame, SKGifEncoderFrameInfo frameInfo = default)
 		{
 			if (stream == null)
 				throw new InvalidOperationException("File is already completed.");
 
-			if (im == null)
-				throw new ArgumentNullException(nameof(im));
+			if (frame == null)
+				throw new ArgumentNullException(nameof(frame));
 
-			if (!firstFrame && im.Info.Size != frameSize)
+			if (!firstFrame && frame.Info.Size != frameSize)
 				throw new InvalidOperationException("Image size does not match the first frame.");
 
-			var quantizedFrame = quantizer.Quantize(im.Pixels);
+			var quantizedFrame = quantizer.Quantize(frame.Pixels);
 
 			if (firstFrame)
 			{
-				frameSize = im.Info.Size;
+				WriteString("GIF89a"); // header
+
+				frameSize = frame.Info.Size;
 
 				WriteLogicalScreenDescriptor(quantizedFrame);
 				WritePalette(quantizedFrame);
@@ -81,20 +85,17 @@ namespace SkiaSharp.Extended.Encoding
 			firstFrame = false;
 		}
 
+		// Dispose
+
 		public void Dispose()
 		{
-			Flush();
-		}
+			stream.WriteByte(0x3b); // gif trailer
 
-		public void Flush()
-		{
-			if (stream != null)
-			{
-				stream.WriteByte(0x3b); // gif trailer
+			stream.Flush();
+			stream = null;
 
-				stream.Flush();
-				stream = null;
-			}
+			encoder?.Dispose();
+			encoder = null;
 		}
 
 		// Write*
@@ -202,8 +203,9 @@ namespace SkiaSharp.Extended.Encoding
 		private void WritePalette(SKQuantizedFrame quantizedFrame)
 		{
 			stream.Write(quantizedFrame.Palette, 0, quantizedFrame.Palette.Length);
-			int n = (3 * 256) - quantizedFrame.Palette.Length;
-			for (int i = 0; i < n; i++)
+
+			var n = (3 * 256) - quantizedFrame.Palette.Length;
+			for (var i = 0; i < n; i++)
 			{
 				stream.WriteByte(0);
 			}
@@ -211,8 +213,7 @@ namespace SkiaSharp.Extended.Encoding
 
 		private void WritePixels(SKQuantizedFrame quantizedFrame)
 		{
-			LZWEncoder encoder = new LZWEncoder(quantizedFrame);
-			encoder.Encode(stream);
+			encoder.Encode(stream, quantizedFrame);
 		}
 
 		private void WriteShort(int value)
@@ -221,12 +222,12 @@ namespace SkiaSharp.Extended.Encoding
 			stream.WriteByte(Convert.ToByte((value >> 8) & 0xff));
 		}
 
-		private void WriteString(string s)
+		private void WriteString(string str)
 		{
-			char[] chars = s.ToCharArray();
-			for (int i = 0; i < chars.Length; i++)
+			var len = str.Length;
+			for (var i = 0; i < len; i++)
 			{
-				stream.WriteByte((byte)chars[i]);
+				stream.WriteByte((byte)str[i]);
 			}
 		}
 	}
